@@ -3,7 +3,7 @@ import com.mballen.demoparkapi.entity.Usuario;
 import com.mballen.demoparkapi.exception.EntityNotFoundException;
 import com.mballen.demoparkapi.exception.UsernameUniqueViolationException;
 import com.mballen.demoparkapi.repository.UsuarioRepository;
-import com.mballen.demoparkapi.web.exception.PasswordInvalidException;
+import com.mballen.demoparkapi.exception.PasswordInvalidException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

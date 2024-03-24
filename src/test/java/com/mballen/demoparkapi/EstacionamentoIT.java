@@ -1,7 +1,6 @@
 package com.mballen.demoparkapi;
 
 import com.mballen.demoparkapi.web.dto.EstacionamentoCreateDto;
-import com.mballen.demoparkapi.web.dto.EstacionamentoResponseDto;
 import com.mballen.demoparkapi.web.dto.PageableDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import com.jayway.jsonpath.Predicate;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Sql(scripts = "/sql/estacionamentos/estacionamentos-insert.sql",executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)

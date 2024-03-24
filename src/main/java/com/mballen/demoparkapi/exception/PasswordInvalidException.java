@@ -1,4 +1,4 @@
-package com.mballen.demoparkapi.web.exception;
+package com.mballen.demoparkapi.exception;
 
 public class PasswordInvalidException extends RuntimeException{
 
