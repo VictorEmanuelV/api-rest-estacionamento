@@ -43,16 +43,7 @@ public class VagaServiceTestUnit {
     void whenSalvarThenReturnVaga(){
         Mockito.when(vagaRepository.save(Mockito.any())).thenReturn(vaga);
         Vaga response = vagaService.salvar(vaga);
-
-        Assertions.assertNotNull(response);
-        Assertions.assertEquals(response.getId(),ID);
-        Assertions.assertEquals(response.getCodigo(),CODIGO);
-        Assertions.assertEquals(response.getStatus(),STATUS);
-        Assertions.assertEquals(response.getDataCriacao(),DATA_CRIACAO);
-        Assertions.assertEquals(response.getDataModificacao(),DATA_MODIFICACAO);
-        Assertions.assertEquals(response.getCriadoPor(),CRIADO_POR);
-        Assertions.assertEquals(response.getModificadoPor(),MODIFICADO_POR);
-
+        vagaEquals(response);
     }
 
     @Test
@@ -73,15 +64,7 @@ public class VagaServiceTestUnit {
         Mockito.when(vagaRepository.findByCodigo(Mockito.anyString())).thenReturn(optionalVaga);
 
         Vaga response = vagaService.buscarPorCodigo(CODIGO);
-
-        Assertions.assertNotNull(response);
-        Assertions.assertEquals(response.getId(),ID);
-        Assertions.assertEquals(response.getCodigo(),CODIGO);
-        Assertions.assertEquals(response.getStatus(),STATUS);
-        Assertions.assertEquals(response.getDataCriacao(),DATA_CRIACAO);
-        Assertions.assertEquals(response.getDataModificacao(),DATA_MODIFICACAO);
-        Assertions.assertEquals(response.getCriadoPor(),CRIADO_POR);
-        Assertions.assertEquals(response.getModificadoPor(),MODIFICADO_POR);
+        vagaEquals(response);
 
     }
     @Test
@@ -101,17 +84,8 @@ public class VagaServiceTestUnit {
     @Test
     void whenBuscarPorVagaLivreThenReturnVaga(){
         Mockito.when(vagaRepository.findFirstByStatus(Mockito.any())).thenReturn(optionalVaga);
-
         Vaga response = vagaService.buscarPorVagaLivre();
-
-        Assertions.assertNotNull(response);
-        Assertions.assertEquals(response.getId(),ID);
-        Assertions.assertEquals(response.getCodigo(),CODIGO);
-        Assertions.assertEquals(response.getStatus(),STATUS);
-        Assertions.assertEquals(response.getDataCriacao(),DATA_CRIACAO);
-        Assertions.assertEquals(response.getDataModificacao(),DATA_MODIFICACAO);
-        Assertions.assertEquals(response.getCriadoPor(),CRIADO_POR);
-        Assertions.assertEquals(response.getModificadoPor(),MODIFICADO_POR);
+        vagaEquals(response);
 
     }
     @Test
@@ -134,5 +108,14 @@ public class VagaServiceTestUnit {
                 DATA_CRIACAO,DATA_MODIFICACAO,CRIADO_POR,MODIFICADO_POR));
     }
 
-
+    void vagaEquals(Vaga response){
+        Assertions.assertNotNull(response);
+        Assertions.assertEquals(response.getId(),ID);
+        Assertions.assertEquals(response.getCodigo(),CODIGO);
+        Assertions.assertEquals(response.getStatus(),STATUS);
+        Assertions.assertEquals(response.getDataCriacao(),DATA_CRIACAO);
+        Assertions.assertEquals(response.getDataModificacao(),DATA_MODIFICACAO);
+        Assertions.assertEquals(response.getCriadoPor(),CRIADO_POR);
+        Assertions.assertEquals(response.getModificadoPor(),MODIFICADO_POR);
+    }
 }

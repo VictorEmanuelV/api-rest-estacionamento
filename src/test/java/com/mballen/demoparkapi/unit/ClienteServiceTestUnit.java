@@ -54,18 +54,8 @@ public class ClienteServiceTestUnit {
     @Test
     void whenSalvarThenReturnCliente(){
         Mockito.when(clienteRepository.save(Mockito.any())).thenReturn(cliente);
-
         Cliente response = clienteService.salvar(cliente);
-
-        Assertions.assertNotNull(response);
-        Assertions.assertEquals(response.getId(),ID);
-        Assertions.assertEquals(response.getNome(),NOME);
-        Assertions.assertEquals(response.getCpf(),CPF);
-        Assertions.assertEquals(response.getUsuario(),USUARIO);
-        Assertions.assertEquals(response.getDataCriacao(),DATA_CRIACAO);
-        Assertions.assertEquals(response.getDataModificacao(),DATA_MODIFICACAO);
-        Assertions.assertEquals(response.getCriadoPor(),CRIADO_POR);
-        Assertions.assertEquals(response.getModificadoPor(),MODIFICADO_POR);
+        clienteEquals(response);
     }
 
     @Test
@@ -87,16 +77,7 @@ public class ClienteServiceTestUnit {
         Mockito.when(clienteRepository.findById(Mockito.anyLong())).thenReturn(optionalCliente);
 
         Cliente response = clienteService.buscarPorId(ID);
-
-        Assertions.assertNotNull(response);
-        Assertions.assertEquals(response.getId(),ID);
-        Assertions.assertEquals(response.getNome(),NOME);
-        Assertions.assertEquals(response.getCpf(),CPF);
-        Assertions.assertEquals(response.getUsuario(),USUARIO);
-        Assertions.assertEquals(response.getDataCriacao(),DATA_CRIACAO);
-        Assertions.assertEquals(response.getDataModificacao(),DATA_MODIFICACAO);
-        Assertions.assertEquals(response.getCriadoPor(),CRIADO_POR);
-        Assertions.assertEquals(response.getModificadoPor(),MODIFICADO_POR);
+        clienteEquals(response);
     }
 
     @Test
@@ -130,35 +111,15 @@ public class ClienteServiceTestUnit {
     @Test
     void whenBuscarUsuarioPordIdThenReturnCliente(){
         Mockito.when(clienteRepository.findByUsuarioId(Mockito.anyLong())).thenReturn(cliente);
-
         Cliente response = clienteService.buscarUsuarioPorId(ID);
-
-        Assertions.assertNotNull(response);
-        Assertions.assertEquals(response.getId(),ID);
-        Assertions.assertEquals(response.getNome(),NOME);
-        Assertions.assertEquals(response.getCpf(),CPF);
-        Assertions.assertEquals(response.getUsuario(),USUARIO);
-        Assertions.assertEquals(response.getDataCriacao(),DATA_CRIACAO);
-        Assertions.assertEquals(response.getDataModificacao(),DATA_MODIFICACAO);
-        Assertions.assertEquals(response.getCriadoPor(),CRIADO_POR);
-        Assertions.assertEquals(response.getModificadoPor(),MODIFICADO_POR);
+        clienteEquals(response);
     }
 
     @Test
     void whenBuscarPorCpfThenReturnCliente(){
         Mockito.when(clienteRepository.findByCpf(Mockito.anyString())).thenReturn(optionalCliente);
-
         Cliente response = clienteService.buscarPorCpf(CPF);
-
-        Assertions.assertNotNull(response);
-        Assertions.assertEquals(response.getId(),ID);
-        Assertions.assertEquals(response.getNome(),NOME);
-        Assertions.assertEquals(response.getCpf(),CPF);
-        Assertions.assertEquals(response.getUsuario(),USUARIO);
-        Assertions.assertEquals(response.getDataCriacao(),DATA_CRIACAO);
-        Assertions.assertEquals(response.getDataModificacao(),DATA_MODIFICACAO);
-        Assertions.assertEquals(response.getCriadoPor(),CRIADO_POR);
-        Assertions.assertEquals(response.getModificadoPor(),MODIFICADO_POR);
+        clienteEquals(response);
 
 
     }
@@ -198,6 +159,17 @@ public class ClienteServiceTestUnit {
         };
         this.page = new PageImpl<>(Collections.singletonList(clienteP));
 
+    }
+    void clienteEquals(Cliente response){
+        Assertions.assertNotNull(response);
+        Assertions.assertEquals(response.getId(),ID);
+        Assertions.assertEquals(response.getNome(),NOME);
+        Assertions.assertEquals(response.getCpf(),CPF);
+        Assertions.assertEquals(response.getUsuario(),USUARIO);
+        Assertions.assertEquals(response.getDataCriacao(),DATA_CRIACAO);
+        Assertions.assertEquals(response.getDataModificacao(),DATA_MODIFICACAO);
+        Assertions.assertEquals(response.getCriadoPor(),CRIADO_POR);
+        Assertions.assertEquals(response.getModificadoPor(),MODIFICADO_POR);
     }
 
 }

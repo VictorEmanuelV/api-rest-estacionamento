@@ -61,15 +61,7 @@ class UsuarioServiceTestUnit {
 
         Mockito.verify(usuarioRepository,Mockito.times(1)).save(usuario);
         Mockito.verify(passwordEncoder,Mockito.times(1)).encode("123456");
-
-        Assertions.assertEquals(ID,response.getId());
-        Assertions.assertEquals(USERNAME,response.getUsername());
-        Assertions.assertEquals(PASSWORD,response.getPassword());
-        Assertions.assertEquals(DATA_CRIACAO,response.getDataCriacao());
-        Assertions.assertEquals(DATA_MODIFICACAO,response.getDataModificacao());
-        Assertions.assertEquals(CRIADO_POR,response.getCriadoPor());
-        Assertions.assertEquals(MODIFICADO_POR,response.getModificadoPor());
-
+        usuarioEquals(response);
     }
     @Test
     void  whenSalvarThenReturnUsernameUniqueViolationException(){
@@ -138,17 +130,8 @@ class UsuarioServiceTestUnit {
     @Test
     void whenBuscarPorUsernameThenReturnUsuario(){
         Mockito.when(usuarioRepository.findByUsername(Mockito.anyString())).thenReturn(optionalUsuario);
-
         Usuario response = usuarioService.buscarPorUsername(USERNAME);
-
-        Assertions.assertNotNull(response);
-        Assertions.assertEquals(response.getId(),ID);
-        Assertions.assertEquals(response.getUsername(),USERNAME);
-        Assertions.assertEquals(response.getPassword(),PASSWORD);
-        Assertions.assertEquals(response.getDataCriacao(),DATA_CRIACAO);
-        Assertions.assertEquals(response.getDataModificacao(),DATA_MODIFICACAO);
-        Assertions.assertEquals(response.getCriadoPor(),CRIADO_POR);
-        Assertions.assertEquals(response.getModificadoPor(),MODIFICADO_POR);
+        usuarioEquals(response);
     }
     @Test
     void whenBuscarPorUsernameThenReturnEntityNotFoundException(){
@@ -186,6 +169,16 @@ class UsuarioServiceTestUnit {
 
         usuarios = new ArrayList<>();
         usuarios.add(usuario);
+    }
+    void usuarioEquals(Usuario response){
+        Assertions.assertNotNull(response);
+        Assertions.assertEquals(response.getId(),ID);
+        Assertions.assertEquals(response.getUsername(),USERNAME);
+        Assertions.assertEquals(response.getPassword(),PASSWORD);
+        Assertions.assertEquals(response.getDataCriacao(),DATA_CRIACAO);
+        Assertions.assertEquals(response.getDataModificacao(),DATA_MODIFICACAO);
+        Assertions.assertEquals(response.getCriadoPor(),CRIADO_POR);
+        Assertions.assertEquals(response.getModificadoPor(),MODIFICADO_POR);
     }
 
 
