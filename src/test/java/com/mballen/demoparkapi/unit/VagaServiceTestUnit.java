@@ -2,7 +2,6 @@ package com.mballen.demoparkapi.unit;
 
 import com.mballen.demoparkapi.entity.Vaga;
 import com.mballen.demoparkapi.exception.CodigoUniqueViolationException;
-import com.mballen.demoparkapi.exception.CpfUniqueViolationException;
 import com.mballen.demoparkapi.exception.EntityNotFoundException;
 import com.mballen.demoparkapi.repository.VagaRepository;
 import com.mballen.demoparkapi.service.VagaService;
