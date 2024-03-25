@@ -28,7 +28,7 @@ import java.util.Optional;
 class UsuarioServiceTestUnit {
 
     private static final Long   ID = 1L;
-    private static final String USERNAME                = "victoremanuel@gmail.com";
+    private static final String USERNAME                = "usuarioTestUnitl@gmail.com";
     private static final String PASSWORD                = "123456";
     private static final LocalDateTime DATA_CRIACAO     = LocalDateTime.now();
     private static final LocalDateTime DATA_MODIFICACAO = LocalDateTime.now();

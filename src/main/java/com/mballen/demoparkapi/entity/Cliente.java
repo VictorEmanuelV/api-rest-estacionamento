@@ -35,8 +35,14 @@ public class Cliente implements Serializable {
     @OneToOne
     @JoinColumn(name = "id_usuario",nullable = false)
     private Usuario usuario;
-
-
+    // private static final Long ID = 1L;
+    // private static final String NOME = "Victor emanuel"
+    // private static final String CPF = "25945427098";
+    // private static final Long ID_USUARIO = 1L;
+    // private static final LocalDateTime DATA_CRIACAO = LocalDateTime.now();
+    // private static final LocalDateTime DATA_MODIFICACAO = LocalDateTime.now();
+    // private static final String CRIADO_POR = "useranonymus";
+    // private static final String MODIFICADO_POR = "useranonymus";
     @CreatedDate
     @Column(name = "data_criacao")
     private LocalDateTime dataCriacao;
