@@ -1,4 +1,4 @@
-package com.mballen.demoparkapi;
+package com.mballen.demoparkapi.e2e;
 
 import com.mballen.demoparkapi.jwt.JwtToken;
 import com.mballen.demoparkapi.web.dto.UsuarioLoginDto;

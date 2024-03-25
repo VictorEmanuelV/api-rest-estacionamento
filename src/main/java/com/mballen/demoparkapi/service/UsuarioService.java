@@ -5,13 +5,13 @@ import com.mballen.demoparkapi.exception.UsernameUniqueViolationException;
 import com.mballen.demoparkapi.repository.UsuarioRepository;
 import com.mballen.demoparkapi.exception.PasswordInvalidException;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 public class UsuarioService {
     private final UsuarioRepository usuarioRepository;

@@ -1,4 +1,4 @@
-package com.mballen.demoparkapi;
+package com.mballen.demoparkapi.e2e;
 
 import com.mballen.demoparkapi.web.dto.EstacionamentoCreateDto;
 import com.mballen.demoparkapi.web.dto.PageableDto;

@@ -1,4 +1,4 @@
-package com.mballen.demoparkapi;
+package com.mballen.demoparkapi.e2e;
 
 import com.mballen.demoparkapi.web.dto.UsuarioCreateDto;
 import com.mballen.demoparkapi.web.dto.UsuarioResponseDto;
