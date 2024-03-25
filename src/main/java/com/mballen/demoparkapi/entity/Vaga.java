@@ -30,7 +30,6 @@ public class Vaga implements Serializable {
     @Column(name = "status",nullable = false)
     @Enumerated(EnumType.STRING)
     private StatusVaga status;
-
     @CreatedDate
     @Column(name = "data_criacao")
     private LocalDateTime dataCriacao;
