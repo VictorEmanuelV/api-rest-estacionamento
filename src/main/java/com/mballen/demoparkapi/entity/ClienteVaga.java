@@ -27,18 +27,6 @@ public class ClienteVaga {
     @Column(name = "numero_recibo",nullable = false,unique = true,length = 15)
     private String recibo;
 
-    //private static final Long ID = 1L;
-    //private static final String RECIBO =  "12345678910";
-    //private static final String PLACA = "3209";
-    //private static final String MARCA = "FORD";
-    //private static final String MODELO = "FIESTA";
-    //private static final String COR = "AZUL";
-    //private static final LocalDateTime DATA_ENTRADA = LocalDateTime.now();
-    //private static final LocalDateTime DATA_SAIDA = LocalDateTime.now();
-    //private static final BigDecimal VALOR = new BigDecimal(25);
-    //private static final BigDecimal DESCONTO = new BigDecimal(5);
-    //private static final Cliente CLIENTE = new Cliente();
-    //private static final Vaga VAGA = new Vaga();
     @Column(name = "placa",nullable = false,length = 8)
     private String placa;
 
