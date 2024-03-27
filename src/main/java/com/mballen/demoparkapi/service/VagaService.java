@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 import static com.mballen.demoparkapi.entity.Vaga.StatusVaga.LIVRE;
 
@@ -37,4 +40,5 @@ public class VagaService {
                 ()-> new EntityNotFoundException("Nenhuma vaga Livre foi encontrada")
         );
     }
+
 }

@@ -2,7 +2,7 @@ package com.mballen.demoparkapi.web.controller;
 
 import com.mballen.demoparkapi.entity.Vaga;
 import com.mballen.demoparkapi.service.VagaService;
-import com.mballen.demoparkapi.web.dto.ClienteResponseDto;
+import com.mballen.demoparkapi.util.ServletUriBuilderImpl;
 import com.mballen.demoparkapi.web.dto.VagaCreateDto;
 import com.mballen.demoparkapi.web.dto.VagaResponseDto;
 import com.mballen.demoparkapi.web.dto.mapper.VagaMapper;
@@ -20,7 +20,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 
@@ -31,6 +30,8 @@ import java.net.URI;
 public class VagaController {
 
     private final VagaService vagaService;
+
+    private final ServletUriBuilderImpl servletUriBuilder;
 
     @Operation(summary = "Criar uma nova vaga",description = "Recurso para criar uma nova vaga ." +
             "Requisição exige uso de um bearer token. Acesso restro a Role='ADMIN'",
@@ -55,10 +56,7 @@ public class VagaController {
         Vaga vaga = VagaMapper.toVaga(dto);
         vagaService.salvar(vaga);
 
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequestUri().path("/{codigo}")
-                .buildAndExpand(vaga.getCodigo())
-                .toUri();
+        URI location = servletUriBuilder.build("/{codigo}", vaga.getCodigo());
 
         return ResponseEntity.created(location).build();
     }
@@ -85,4 +83,5 @@ public class VagaController {
         vagaService.salvar(vaga);
         return ResponseEntity.ok(VagaMapper.toDto(vaga));
     }
+
 }
