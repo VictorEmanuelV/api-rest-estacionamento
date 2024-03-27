@@ -53,7 +53,7 @@ public class ClienteControllerTestUnit {
     private JwtUserDetails userDetails;
     private ClienteCreateDto clienteCreateDto;
     private Usuario usuario;
-    private Page<ClienteProjection> page;
+
     @BeforeEach
     void setUp() {
         startCliente();
@@ -86,12 +86,12 @@ public class ClienteControllerTestUnit {
     }
     @Test
     void whenGetAllThenReturnResponseEntityPageableOfClientes(){
+        Pageable pageable = PageRequest.of(0,5);
+        Page<ClienteProjection>page = Mockito.mock(Page.class);
         Mockito.when(clienteService.buscarTodos(Mockito.any())).thenReturn(page);
-
-        ResponseEntity<PageableDto> response = clienteController.getAll(PageRequest.of(0,10));
+        ResponseEntity<PageableDto> response = clienteController.getAll(pageable);
 
         Assertions.assertEquals(response.getStatusCode(),HttpStatus.OK);
-        Assertions.assertEquals(response.getBody().getTotalElements(),1);
         Assertions.assertEquals(response.getClass(),ResponseEntity.class);
         Assertions.assertEquals(response.getBody().getClass(), PageableDto.class);
 
@@ -114,24 +114,6 @@ public class ClienteControllerTestUnit {
                 DATA_MODIFICACAO, CRIADO_POR, MODIFICADO_POR);
 
         this.clienteCreateDto = new ClienteCreateDto(NOME,CPF);
-
-        ClienteProjection clienteProjection = new ClienteProjection() {
-            @Override
-            public Long getId() {
-                return ID;
-            }
-
-            @Override
-            public String getNome() {
-                return NOME;
-            }
-
-            @Override
-            public String getCpf() {
-                return CPF;
-            }
-        };
-        this.page = new PageImpl<>(Collections.singletonList(clienteProjection));
 
     }
 

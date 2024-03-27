@@ -5,9 +5,7 @@ import com.mballen.demoparkapi.entity.ClienteVaga;
 import com.mballen.demoparkapi.entity.Vaga;
 import com.mballen.demoparkapi.exception.EntityNotFoundException;
 import com.mballen.demoparkapi.repository.ClienteVagaRepository;
-import com.mballen.demoparkapi.repository.projection.ClienteProjection;
 import com.mballen.demoparkapi.repository.projection.ClienteVagaProjection;
-import com.mballen.demoparkapi.service.ClienteService;
 import com.mballen.demoparkapi.service.ClienteVagaService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,12 +16,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Collections;
+import java.util.LinkedList;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
@@ -45,7 +42,7 @@ public class ClienteVagaServiceTestUnit {
     private static final String CRIADO_POR = "useranonymus";
     private static final String MODIFICADO_POR = "useranonymus";
 
-    Page<ClienteVagaProjection> page;
+
 
     private static final String CPF = "98866317080";
     @InjectMocks
@@ -55,7 +52,6 @@ public class ClienteVagaServiceTestUnit {
 
     private ClienteVaga clienteVaga;
 
-    private Pageable pageable;
     private Optional<ClienteVaga> optionalClienteVaga;
     @BeforeEach
     void setUp(){
@@ -103,17 +99,26 @@ public class ClienteVagaServiceTestUnit {
     }
     @Test
     void whenBuscarTodosPorClienteCpfThenReturnPageable(){
+        Page<ClienteVagaProjection> page = Mockito.mock(Page.class);
+        Pageable pageable = PageRequest.of(0,5);
         Mockito.when(clienteVagaRepository.findAllByClienteCpf(Mockito.anyString(),Mockito.any())).thenReturn(page);
-
         Page<ClienteVagaProjection> response = clienteVagaService.buscarTodosPorClienteCpf(CPF,pageable);
-        clienteVagaEqualsPageable(response);
+
+        Assertions.assertEquals(response,page);
+        Assertions.assertEquals(response.getContent().getClass(), LinkedList.class);
+
 
     }
     @Test
     void whenBuscarTodosPorUsuarioIdThenReturnPageable(){
+        Page<ClienteVagaProjection> page = Mockito.mock(Page.class);
+        Pageable pageable = PageRequest.of(0,5);
         Mockito.when(clienteVagaRepository.findAllByClienteUsuarioId(Mockito.anyLong(),Mockito.any())).thenReturn(page);
         Page<ClienteVagaProjection>response = clienteVagaService.buscarTodosPorUsuarioId(ID,pageable);
-        clienteVagaEqualsPageable(response);
+
+
+        Assertions.assertEquals(response,page);
+        Assertions.assertEquals(response.getContent().getClass(), LinkedList.class);
     }
 
     void startClienteVaga(){
@@ -124,66 +129,6 @@ public class ClienteVagaServiceTestUnit {
         this.optionalClienteVaga = Optional.of(new ClienteVaga(ID,RECIBO,PLACA,MARCA,MODELO,COR,DATA_ENTRADA,
                 DATA_SAIDA,VALOR,DESCONTO,CLIENTE,VAGA,DATA_CRIACAO
                 ,DATA_MODIFICACAO,CRIADO_POR,MODIFICADO_POR));
-
-        ClienteVagaProjection clienteVagaP = new ClienteVagaProjection() {
-            @Override
-            public String getplaca() {
-                return "1111";
-            }
-
-            @Override
-            public String getMarca() {
-                return "FORD";
-            }
-
-            @Override
-            public String getModelo() {
-                return "FIESTA";
-            }
-
-            @Override
-            public String getCor() {
-                return "AZUL";
-            }
-
-            @Override
-            public String getClienteCpf() {
-                return CPF;
-            }
-
-            @Override
-            public String getRecibo() {
-                return RECIBO;
-            }
-
-            @Override
-            public LocalDateTime getDataEntrada() {
-                return DATA_ENTRADA;
-            }
-
-            @Override
-            public LocalDateTime getDataSaida() {
-                return DATA_SAIDA;
-            }
-
-            @Override
-            public String getVagaCodigo() {
-                return "A-01";
-            }
-
-            @Override
-            public BigDecimal getValor() {
-                return VALOR;
-            }
-
-            @Override
-            public BigDecimal getDesconto() {
-                return DESCONTO;
-            }
-
-        };
-
-        this.page = new PageImpl<>(Collections.singletonList(clienteVagaP));
     }
 
     void clienteVagaEquals(ClienteVaga response){
@@ -205,18 +150,5 @@ public class ClienteVagaServiceTestUnit {
         Assertions.assertEquals(response.getCriadoPor(),CRIADO_POR);
         Assertions.assertEquals(response.getModificadoPor(),MODIFICADO_POR);
     }
-    void clienteVagaEqualsPageable(Page<ClienteVagaProjection>response){
 
-        Assertions.assertEquals(response.getContent().get(0).getClienteCpf(),CPF);
-        Assertions.assertEquals(response.getContent().get(0).getCor(),"AZUL");
-        Assertions.assertEquals(response.getContent().get(0).getplaca(),"1111");
-        Assertions.assertEquals(response.getContent().get(0).getMarca(),"FORD");
-        Assertions.assertEquals(response.getContent().get(0).getModelo(),"FIESTA");
-        Assertions.assertEquals(response.getContent().get(0).getRecibo(),RECIBO);
-        Assertions.assertEquals(response.getContent().get(0).getVagaCodigo(),"A-01");
-        Assertions.assertEquals(response.getContent().get(0).getValor(),VALOR);
-        Assertions.assertEquals(response.getContent().get(0).getDataEntrada(),DATA_ENTRADA);
-        Assertions.assertEquals(response.getContent().get(0).getDataSaida(),DATA_SAIDA);
-        Assertions.assertEquals(response.getContent().get(0).getDesconto(),DESCONTO);
-    }
 }

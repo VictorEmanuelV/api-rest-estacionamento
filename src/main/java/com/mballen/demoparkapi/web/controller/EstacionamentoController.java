@@ -5,6 +5,7 @@ import com.mballen.demoparkapi.jwt.JwtUserDetails;
 import com.mballen.demoparkapi.repository.projection.ClienteVagaProjection;
 import com.mballen.demoparkapi.service.ClienteVagaService;
 import com.mballen.demoparkapi.service.EstacionamentoService;
+import com.mballen.demoparkapi.util.ServletUriBuilderImpl;
 import com.mballen.demoparkapi.web.dto.EstacionamentoCreateDto;
 import com.mballen.demoparkapi.web.dto.EstacionamentoResponseDto;
 import com.mballen.demoparkapi.web.dto.PageableDto;
@@ -48,6 +49,7 @@ public class EstacionamentoController {
 
     private final EstacionamentoService estacionamentoService;
     private final ClienteVagaService clienteVagaService;
+    private final ServletUriBuilderImpl servletUriBuilder;
 
     @Operation(summary = "Operação de check-in",description = "Recurso para dar entrada de um veiculo no estacionamento. "+
     "Requisição exige uso de um bearer token. Acesso restrito a Role='ADMIN'",
@@ -78,11 +80,7 @@ public class EstacionamentoController {
         estacionamentoService.checkIn(clienteVaga);
         EstacionamentoResponseDto responseDto = ClienteVagaMapper.toDto(clienteVaga);
 
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequestUri().path("/{recibo}")
-                .buildAndExpand(clienteVaga.getRecibo())
-                .toUri();
-
+        URI location = servletUriBuilder.build("/{recibo}",clienteVaga.getRecibo());
         return ResponseEntity.created(location).body(responseDto);
     }
 
