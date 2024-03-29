@@ -3,6 +3,7 @@ package com.mballen.demoparkapi.web.controller;
 import com.mballen.demoparkapi.entity.Vaga;
 import com.mballen.demoparkapi.service.VagaService;
 import com.mballen.demoparkapi.util.ServletUriBuilderImpl;
+import com.mballen.demoparkapi.util.UriBuilder;
 import com.mballen.demoparkapi.web.dto.VagaCreateDto;
 import com.mballen.demoparkapi.web.dto.VagaResponseDto;
 import com.mballen.demoparkapi.web.dto.mapper.VagaMapper;
@@ -31,7 +32,7 @@ public class VagaController {
 
     private final VagaService vagaService;
 
-    private final ServletUriBuilderImpl servletUriBuilder;
+    private final UriBuilder uriBuilder;
 
     @Operation(summary = "Criar uma nova vaga",description = "Recurso para criar uma nova vaga ." +
             "Requisição exige uso de um bearer token. Acesso restro a Role='ADMIN'",
@@ -56,7 +57,7 @@ public class VagaController {
         Vaga vaga = VagaMapper.toVaga(dto);
         vagaService.salvar(vaga);
 
-        URI location = servletUriBuilder.build("/{codigo}", vaga.getCodigo());
+        URI location = uriBuilder.build("/{codigo}", vaga.getCodigo());
 
         return ResponseEntity.created(location).build();
     }
